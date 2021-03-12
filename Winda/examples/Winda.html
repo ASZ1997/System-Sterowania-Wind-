@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Winda</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+	
+		<div class="kolumna_boczna lewa">
+			<div class="panel_tresc">
+				<p class="naglowek_srodkowy">Sterowanie</p>
+					
+					<button onclick="Funkcja()" class="button1" ></button> 
+					<br>
+					<br>
+					<button onclick="Funkcja1()" class="button2"></button>
+					<br><br>
+					<button onclick="Funkcja1()" class="button3"></button><button onclick="Funkcja1()" class="button4"></button>
+					<br><br>
+					<button onclick="Funkcja1()" class="button5"></button><button onclick="Funkcja1()" class="button6"></button>
+
+			</div>
+		</div>
+	<div class="kolumna_srodkowa">
+		
+		<div class="panel_tresc">
+			<p class="naglowek_srodkowy">Model</p>	
+				<script src="//cdn.rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
+				<script>
+					
+
+
+					var scene = new THREE.Scene();
+					container = document.createElement( 'canvas' );
+					document.body.appendChild( container );
+					var camera = new THREE.PerspectiveCamera( 95, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+					renderer = new THREE.WebGLRenderer( { antialias: true });
+					renderer.setPixelRatio( window.devicePixelRatio );
+					renderer.setSize( 900, 600 );
+					document.body.appendChild( renderer.domElement );
+
+/*
+					var grid = new THREE.GridHelper( 100, 100, 0xffffff, 0x555555 );
+					grid.position.set(0, -1.5, 0);
+					scene.add( grid );
+
+					var grid1 = new THREE.GridHelper( 50, 50, 0xffffff, 0x555555 );
+					grid1.position.set(0, -0.5, 0);
+					scene.add( grid1 );
+
+					var grid2 = new THREE.GridHelper( 50, 50, 0xffffff, 0x555555 );
+					grid2.position.set(0, 0.5, 0);
+					scene.add( grid2 );
+
+					var grid3 = new THREE.GridHelper( 50, 50, 0xffffff, 0x555555 );
+					grid3.position.set(0, 1.5, 0);
+					scene.add( grid3 ); */
+
+					var axesHelper = new THREE.AxesHelper( 7 );
+					axesHelper.position.set(0, -3, 0);
+					scene.add( axesHelper );
+
+					var axesHelper1 = new THREE.AxesHelper( 7 );
+					axesHelper1.position.set(0, 0, 0);
+					scene.add( axesHelper1 );
+
+					var axesHelper2 = new THREE.AxesHelper( 7 );
+					axesHelper2.position.set(0, 3, 0);
+					scene.add( axesHelper2 );
+
+					var axesHelper3 = new THREE.AxesHelper( 7 );
+					axesHelper3.position.set(0, 6, 0);
+					scene.add( axesHelper3 );
+
+					var geometry = new THREE.BoxGeometry();
+					var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+					var cube = new THREE.Mesh( geometry, material );
+					cube.position.set( 0, -3,0);
+					scene.add( cube );
+
+					camera.position.z = 7;
+
+            		document.addEventListener( 'keydown', onKeyDown );
+            
+            
+            		cube.name='cub';
+
+					
+           		 	function onKeyDown(e){
+						
+          				var distance = 1;
+          				var cube = scene.getObjectByName('cub');
+						 
+							//strzalka w gore
+						  var buttons = document.getElementsByClassName("button1");
+							for (let i = 0; i < buttons.length; i++) {
+							buttons[i].addEventListener("click", onButtonClick, false);
+								};
+							function onButtonClick(event) {
+								if(cube.position.y <6){
+            				cube.position.y += distance;
+								}}
+
+								//strzałka w doł
+								var buttons2 = document.getElementsByClassName("button2");
+									for (let i = 0; i < buttons2.length; i++) {
+									buttons2[i].addEventListener("click", onButtonClick2, false);
+													};
+									function onButtonClick2(event) {
+											if(cube.position.y >-3){
+            									cube.position.y -= distance;
+													}}
+
+								//przycisk 0
+								var buttons3 = document.getElementsByClassName("button3");
+							for (let i = 0; i < buttons3.length; i++) {
+							buttons3[i].addEventListener("click", onButtonClick3, false);
+								};
+							function onButtonClick3(event) {
+								if(cube.position.y >-3){
+            				cube.position.y = -3;
+								}}
+
+								//przycisk 1
+								var buttons4 = document.getElementsByClassName("button4");
+							for (let i = 0; i < buttons4.length; i++) {
+							buttons4[i].addEventListener("click", onButtonClick4, false);
+								};
+							function onButtonClick4(event) {
+								if(cube.position.y =-3 || cube.position.y >3){
+            				cube.position.y = 0;
+								}}
+
+								//przycisk 2
+								var buttons5 = document.getElementsByClassName("button5");
+							for (let i = 0; i < buttons5.length; i++) {
+							buttons5[i].addEventListener("click", onButtonClick5, false);
+								};
+							function onButtonClick5(event) {
+								if(cube.position.y =6 || cube.position.y <0 ){
+            				cube.position.y = 3;
+								}}
+
+								//przycisk 3
+								var buttons6 = document.getElementsByClassName("button6");
+							for (let i = 0; i < buttons6.length; i++) {
+							buttons6[i].addEventListener("click", onButtonClick6, false);
+								};
+							function onButtonClick6(event) {
+								if(cube.position.y <6){
+            				cube.position.y = 6;
+								}}
+
+
+
+
+
+								if(e.keyCode =='38' & cube.position.y <2){
+            				cube.position.y += distance;
+              								}
+          					else if (e.keyCode == '40' & cube.position.y > -1){
+            				cube.position.y -= distance;
+          											}
+          				
+          										
+						}
+
+					var animate = function () {
+						requestAnimationFrame( animate );
+
+						renderer.render( scene, camera );
+											};
+
+					animate();
+				</script>
+				
+		</div>
+	</div>
+	
+	<!--<div id="stopka">
+		<p>Copyright &copy; A.Szewczyk.  </p>
+	</div>
+-->
+	
+	</body>
+</html>

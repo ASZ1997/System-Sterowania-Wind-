@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Winda</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+	</head>
+	<body>
+	
+		<div class="kolumna_boczna lewa">
+			<div class="panel_tresc">
+				<p class="naglowek_srodkowy">Sterowanie</p>
+					
+					<button onclick="Funkcja()" class="button1"></button> 
+					<br>
+					<br>
+					<button onclick="Funkcja1()" class="button2"></button>
+					<br><br>
+					<button onclick="Funkcja1()" class="button3"></button><button onclick="Funkcja1()" class="button4"></button>
+					<br><br>
+					<button onclick="Funkcja1()" class="button5"></button><button onclick="Funkcja1()" class="button6"></button>
+				
+			</div>
+		</div>
+	<div class="kolumna_srodkowa">
+		
+		<div class="panel_tresc">
+			<p class="naglowek_srodkowy">Model</p>	
+			<script type="module">
+				import * as THREE from '../build/three.module.js';
+				  import { STLLoader } from './jsm/loaders/STLLoader.js';
+				  import { OrbitControls } from './jsm/controls/OrbitControls.js';
+				  import { TransformControls } from './jsm/controls/TransformControls.js';
+			
+				  var container;
+				  var camera, scene, renderer, control, orbit;
+			
+				  init();
+				  render();
+			
+				  function init() {
+				  
+					container = document.createElement( 'canvas' );
+					document.body.appendChild( container );
+			
+					renderer = new THREE.WebGLRenderer( { antialias: true });
+					renderer.setPixelRatio( window.devicePixelRatio );
+					renderer.setSize( 700, 550 );
+					
+					document.body.appendChild( renderer.domElement );
+				   
+					camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
+					camera.position.set( 3, 0,0);
+			
+					scene = new THREE.Scene();
+					scene.background = new THREE.Color( 0x72645b );
+					scene.fog = new THREE.Fog( 0x72645b, 2, 15 );
+			
+					var light = new THREE.DirectionalLight( 0xffffff, 2 );
+					light.position.set( 1, 1, 1 );
+					scene.add( light );
+					
+					var light = new THREE.DirectionalLight( 0xffffff, 2  );
+					light.position.set( - 1, - 1, - 1 );
+					scene.add( light );
+			
+					var light = new THREE.AmbientLight( 0x222222 );
+					scene.add( light );
+			
+					orbit = new OrbitControls( camera, renderer.domElement );
+					orbit.update();
+					orbit.addEventListener( 'change', render );
+			
+			
+					var loader = new STLLoader();
+					loader.load( './models/3.stl', function ( geometry ) {
+			
+					  var material = new THREE.MeshPhongMaterial( { color: 0xb87333, specular: 0x111111, shininess: 200 } );
+					  var mesh = new THREE.Mesh( geometry, material );
+			
+					  mesh.position.set( 0.5, 0, 0 );
+           		 	mesh.rotation.set(0,0.7, 0 );
+            		mesh.scale.set( 0.002, 0.002, 0.002 )
+					  
+					  mesh.castShadow = true;
+					  mesh.receiveShadow = true;
+			
+					  scene.add( mesh );	
+			
+					} );	
+			
+					
+			
+				  }
+			
+				  function onWindowResize() {
+			
+					camera.aspect = window.innerWidth / window.innerHeight;
+					camera.updateProjectionMatrix();
+			
+					renderer.setSize( window.innerWidth, window.innerHeight );
+			
+					render();
+			
+				  }
+			
+				  function render() {
+			
+					renderer.render( scene, camera );
+			
+				  }
+				
+				
+				
+				</script>
+				
+		</div>
+	</div>
+	
+	<!--<div id="stopka">
+		<p>Copyright &copy; A.Szewczyk. PWSZ Gniezno  </p>
+	</div>
+-->
+	
+	</body>
+</html>
